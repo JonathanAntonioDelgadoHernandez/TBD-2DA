@@ -1,0 +1,157 @@
+EVA2_5_JOIN
+Jonathan Antonio Delgado Hernandez
+MySQL Shell 26.7.1
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 16
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use t2;
+Default schema set to `t2`.
+Fetching global names, object names from `t2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  t2  SQL > show tables;
++-----------------+
+| Tables_in_t2    |
++-----------------+
+| carrera         |
+| cliente         |
+| cliente_rest    |
+| comida_favorita |
+| estudiante      |
+| productos       |
+| tablaa          |
+| tablab          |
+| venta_detalle   |
+| ventas          |
++-----------------+
+10 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  t2  SQL >  select*from cliente;
++------------+-----------+-----------+------------+
+| id_cliente | nombre    | apellidos | fecha_nac  |
++------------+-----------+-----------+------------+
+|          3 | Cristiano | Ronaldo   | 1998-12-27 |
++------------+-----------+-----------+------------+
+1 row in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select*from ventas;
+Empty set (0.0009 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select*from venta_detalle;
+Empty set (0.0006 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select* from ventas a
+                                   -> inner join cliente b
+                                   -> on a.id_cliente=b.id_cliente;
+Empty set (0.0006 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select a.id_cliente,b.nombre,b.apellidos,a.id_venta,a.fecha_venta
+                                   -> from ventas a
+                                   -> inner join cliente b on a.id_cliente=b.id_cliente;
+Empty set (0.0007 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > insert into productos value(2,'short',1000,'pieza');
+ERROR: 1062 (23000): Duplicate entry '2' for key 'productos.PRIMARY'
+ MySQL  localhost:3306 ssl  t2  SQL > insert into productos value('short',1000,'pieza');
+ERROR: 1136 (21S01): Column count doesn't match value count at row 1
+ MySQL  localhost:3306 ssl  t2  SQL >  insert into productos value(7,'short',1000,'pieza');
+Query OK, 1 row affected (0.0050 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > desc productos;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id_producto | int         | NO   | PRI | NULL    | auto_increment |
+| nombre      | varchar(50) | NO   |     | NULL    |                |
+| precio      | double      | NO   |     | NULL    |                |
+| unidad      | varchar(10) | NO   |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select b.id_producto,a.nombre,a.precio,b.cantidad from productos a inner join venta_detalle b on a.id_producto=b.id_producto;
+Empty set (0.0005 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select b.id_producto,a.nombre,a.precio,b.cantidad, a.precio*b.cantidad from productos a inner join venta_detalle b on a.id_producto=b.id_producto;
+Empty set (0.0013 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select b.id_producto,a.nombre,a.precio,b.cantidad, (a.precio*b.cantidad) as total  from productos a inner join venta_detalle b on a.id_producto=b.id_producto;
+Empty set (0.0006 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select b.id_producto,a.nombre,a.precio,b.cantidad, (a.precio*b.cantidad) as total  from productos a left join venta_detalle b on a.id_producto=b.id_producto;
++-------------+----------+--------+----------+-------+
+| id_producto | nombre   | precio | cantidad | total |
++-------------+----------+--------+----------+-------+
+|        NULL | playera  |   3000 |     NULL |  NULL |
+|        NULL | pantalon |   1919 |     NULL |  NULL |
+|        NULL | tenis    |    999 |     NULL |  NULL |
+|        NULL | short    |   1000 |     NULL |  NULL |
++-------------+----------+--------+----------+-------+
+4 rows in set (0.0037 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select b.id_producto,a.nombre,a.precio,b.cantidad, (a.precio*b.cantidad) as total  from productos a left join venta_detalle b on a.id_producto=b.id_producto where b.id_producto is null;
++-------------+----------+--------+----------+-------+
+| id_producto | nombre   | precio | cantidad | total |
++-------------+----------+--------+----------+-------+
+|        NULL | playera  |   3000 |     NULL |  NULL |
+|        NULL | pantalon |   1919 |     NULL |  NULL |
+|        NULL | tenis    |    999 |     NULL |  NULL |
+|        NULL | short    |   1000 |     NULL |  NULL |
++-------------+----------+--------+----------+-------+
+4 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select b.id_producto,a.nombre,a.precio,b.cantidad, (a.precio*b.cantidad) as total  from productos a left join venta_detalle b on a.id_producto=b.id_producto where  b.id_producto is not null;
+
+Empty set (0.0007 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select*from ventas;
+Empty set (0.0005 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > desc ventas;
++-------------+------+------+-----+---------+----------------+
+| Field       | Type | Null | Key | Default | Extra          |
++-------------+------+------+-----+---------+----------------+
+| id_venta    | int  | NO   | PRI | NULL    | auto_increment |
+| id_cliente  | int  | NO   | MUL | NULL    |                |
+| fecha_venta | date | YES  |     | NULL    |                |
++-------------+------+------+-----+---------+----------------+
+3 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > insert into cliente value(1,'pedro','paramo','1999-07-22');
+Query OK, 1 row affected (0.0058 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select a.id_cliente, a.nombre ,a.apellidos,b.id_venta from cliente a left join ventas b on a.id_cliente=b.id_cliente;
++------------+-----------+-----------+----------+
+| id_cliente | nombre    | apellidos | id_venta |
++------------+-----------+-----------+----------+
+|          1 | pedro     | paramo    |     NULL |
+|          3 | Cristiano | Ronaldo   |     NULL |
++------------+-----------+-----------+----------+
+2 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select a.id_cliente, a.nombre ,a.apellidos,b.id_venta from cliente a left join ventas b on a.id_cliente=b.id_cliente where id_venta is not null;
+Empty set (0.0007 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select a.id_cliente, a.nombre ,a.apellidos,b.id_venta from cliente a left join ventas b on a.id_cliente=b.id_cliente where id_venta is null;
++------------+-----------+-----------+----------+
+| id_cliente | nombre    | apellidos | id_venta |
++------------+-----------+-----------+----------+
+|          1 | pedro     | paramo    |     NULL |
+|          3 | Cristiano | Ronaldo   |     NULL |
++------------+-----------+-----------+----------+
+2 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select a.nombre,a.apellidos ,d.nombre,c.cantidad, d.precio,(c.cantidad*d.precio) as total from cliente a left join ventas b on a.id_cliente=b.id_cliente left join venta_detalle c on b.id_venta=c.id_venta left join productos d on d.id_producto=c.id_producto;
++-----------+-----------+--------+----------+--------+-------+
+| nombre    | apellidos | nombre | cantidad | precio | total |
++-----------+-----------+--------+----------+--------+-------+
+| pedro     | paramo    | NULL   |     NULL |   NULL |  NULL |
+| Cristiano | Ronaldo   | NULL   |     NULL |   NULL |  NULL |
++-----------+-----------+--------+----------+--------+-------+
+2 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select a.nombre,a.apellidos ,d.nombre,c.cantidad, d.precio,(c.cantidad*d.precio) as total from cliente a left join ventas b on a.id_cliente=b.id_cliente left join venta_detalle c on b.id_venta=c.id_venta left join productos d on d.id_producto=c.id_producto where d.nombre is not null;
+Empty set (0.0008 sec)
+ MySQL  localhost:3306 ssl  t2  SQL >  select a.nombre,a.apellidos ,d.nombre,c.cantidad, d.precio,(c.cantidad*d.precio) as total from cliente a left join ventas b on a.id_cliente=b.id_cliente left join venta_detalle c on b.id_venta=c.id_venta left join productos d on d.id_producto=c.id_producto where d.nombre is null;
++-----------+-----------+--------+----------+--------+-------+
+| nombre    | apellidos | nombre | cantidad | precio | total |
++-----------+-----------+--------+----------+--------+-------+
+| pedro     | paramo    | NULL   |     NULL |   NULL |  NULL |
+| Cristiano | Ronaldo   | NULL   |     NULL |   NULL |  NULL |
++-----------+-----------+--------+----------+--------+-------+
+2 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  t2  SQL >
+
+
+
+
+
+
+

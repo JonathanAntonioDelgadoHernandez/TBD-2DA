@@ -1,0 +1,485 @@
+EVA2_8_USERS
+Jonathan Antonio Delgado Hernandez
+MySQL Shell 26.7.1
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 18
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use mysql;
+Default schema set to `mysql`.
+Fetching global names, object names from `mysql` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  mysql  SQL > show tables;
++------------------------------------------------------+
+| Tables_in_mysql                                      |
++------------------------------------------------------+
+| columns_priv                                         |
+| component                                            |
+| db                                                   |
+| default_roles                                        |
+| engine_cost                                          |
+| func                                                 |
+| general_log                                          |
+| global_grants                                        |
+| gtid_executed                                        |
+| help_category                                        |
+| help_keyword                                         |
+| help_relation                                        |
+| help_topic                                           |
+| innodb_index_stats                                   |
+| innodb_table_stats                                   |
+| ndb_binlog_index                                     |
+| password_history                                     |
+| plugin                                               |
+| procs_priv                                           |
+| proxies_priv                                         |
+| replication_asynchronous_connection_failover         |
+| replication_asynchronous_connection_failover_managed |
+| replication_group_configuration_version              |
+| replication_group_member_actions                     |
+| role_edges                                           |
+| server_cost                                          |
+| servers                                              |
+| slave_master_info                                    |
+| slave_relay_log_info                                 |
+| slave_worker_info                                    |
+| slow_log                                             |
+| tables_priv                                          |
+| time_zone                                            |
+| time_zone_leap_second                                |
+| time_zone_name                                       |
+| time_zone_transition                                 |
+| time_zone_transition_type                            |
+| user                                                 |
++------------------------------------------------------+
+38 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > desc user;
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+| Field                    | Type                              | Null | Key | Default               | Extra |
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+| Host                     | char(255)                         | NO   | PRI |                       |       |
+| User                     | char(32)                          | NO   | PRI |                       |       |
+| Select_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Insert_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Update_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Delete_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Drop_priv                | enum('N','Y')                     | NO   |     | N                     |       |
+| Reload_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Shutdown_priv            | enum('N','Y')                     | NO   |     | N                     |       |
+| Process_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| File_priv                | enum('N','Y')                     | NO   |     | N                     |       |
+| Grant_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| References_priv          | enum('N','Y')                     | NO   |     | N                     |       |
+| Index_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Alter_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Show_db_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Super_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_tmp_table_priv    | enum('N','Y')                     | NO   |     | N                     |       |
+| Lock_tables_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Execute_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Repl_slave_priv          | enum('N','Y')                     | NO   |     | N                     |       |
+| Repl_client_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_view_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Show_view_priv           | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_routine_priv      | enum('N','Y')                     | NO   |     | N                     |       |
+| Alter_routine_priv       | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_user_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Event_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Trigger_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_tablespace_priv   | enum('N','Y')                     | NO   |     | N                     |       |
+| ssl_type                 | enum('','ANY','X509','SPECIFIED') | NO   |     |                       |       |
+| ssl_cipher               | blob                              | NO   |     | NULL                  |       |
+| x509_issuer              | blob                              | NO   |     | NULL                  |       |
+| x509_subject             | blob                              | NO   |     | NULL                  |       |
+| max_questions            | int unsigned                      | NO   |     | 0                     |       |
+| max_updates              | int unsigned                      | NO   |     | 0                     |       |
+| max_connections          | int unsigned                      | NO   |     | 0                     |       |
+| max_user_connections     | int unsigned                      | NO   |     | 0                     |       |
+| plugin                   | char(64)                          | NO   |     | caching_sha2_password |       |
+| authentication_string    | text                              | YES  |     | NULL                  |       |
+| password_expired         | enum('N','Y')                     | NO   |     | N                     |       |
+| password_last_changed    | timestamp                         | YES  |     | NULL                  |       |
+| password_lifetime        | smallint unsigned                 | YES  |     | NULL                  |       |
+| account_locked           | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_role_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Drop_role_priv           | enum('N','Y')                     | NO   |     | N                     |       |
+| Password_reuse_history   | smallint unsigned                 | YES  |     | NULL                  |       |
+| Password_reuse_time      | smallint unsigned                 | YES  |     | NULL                  |       |
+| Password_require_current | enum('N','Y')                     | YES  |     | NULL                  |       |
+| User_attributes          | json                              | YES  |     | NULL                  |       |
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+51 rows in set (0.0020 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > select*from user;
++-----------+------------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+---------------------------------------------------------------------------------------+------------------+-----------------------+-------------------+----------------+------------------+----------------+------------------------+---------------------+--------------------------+-----------------+
+| Host      | User             | Select_priv | Insert_priv | Update_priv | Delete_priv | Create_priv | Drop_priv | Reload_priv | Shutdown_priv | Process_priv | File_priv | Grant_priv | References_priv | Index_priv | Alter_priv | Show_db_priv | Super_priv | Create_tmp_table_priv | Lock_tables_priv | Execute_priv | Repl_slave_priv | Repl_client_priv | Create_view_priv | Show_view_priv | Create_routine_priv | Alter_routine_priv | Create_user_priv | Event_priv | Trigger_priv | Create_tablespace_priv | ssl_type | ssl_cipher | x509_issuer | x509_subject | max_questions | max_updates | max_connections | max_user_connections | plugin                | authentication_string                                                                 | password_expired | password_last_changed | password_lifetime | account_locked | Create_role_priv | Drop_role_priv | Password_reuse_history | Password_reuse_time | Password_require_current | User_attributes |
++-----------+------------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+---------------------------------------------------------------------------------------+------------------+-----------------------+-------------------+----------------+------------------+----------------+------------------------+---------------------+--------------------------+-----------------+
+| %         | suoervisores     | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          | 0x         | 0x          | 0x           |             0 |           0 |               0 |                    0 | caching_sha2_password |                                                                                       | Y                | 2026-11-05 19:08:52   |              NULL | Y              | N                | N              |                   NULL |                NULL | NULL                     | NULL            |
+| localhost | mysql.infoschema | Y           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          | 0x         | 0x          | 0x           |             0 |           0 |               0 |                    0 | caching_sha2_password | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED                | N                | 2026-09-01 19:37:38   |              NULL | Y              | N                | N              |                   NULL |                NULL | NULL                     | NULL            |
+| localhost | mysql.session    | N           | N           | N           | N           | N           | N         | N           | Y             | N            | N         | N          | N               | N          | N          | N            | Y          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          | 0x         | 0x          | 0x           |             0 |           0 |               0 |                    0 | caching_sha2_password | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED                | N                | 2026-09-01 19:37:38   |              NULL | Y              | N                | N              |                   NULL |                NULL | NULL                     | NULL            |
+| localhost | mysql.sys        | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          | 0x         | 0x          | 0x           |             0 |           0 |               0 |                    0 | caching_sha2_password | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED                | N                | 2026-09-01 19:37:38   |              NULL | Y              | N                | N              |                   NULL |                NULL | NULL                     | NULL            |
+| localhost | prueba1          | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          | 0x         | 0x          | 0x           |             0 |           0 |               0 |                    0 | caching_sha2_password | $A$005$r\x15\x1D\x040jVx7QgC\x0Cg< @,\x03Ppcw3apVXrH67Dz8tmddHRStVUIwsXkDu3NFj7lOlmn5 | N                | 2026-11-09 01:35:24   |              NULL | N              | N                | N              |                   NULL |                NULL | NULL                     | NULL            |
+| localhost | root             | Y           | Y           | Y           | Y           | Y           | Y         | Y           | Y             | Y            | Y         | Y          | Y               | Y          | Y          | Y            | Y          | Y                     | Y                | Y            | Y               | Y                | Y                | Y              | Y                   | Y                  | Y                | Y          | Y            | Y                      |          | 0x         | 0x          | 0x           |             0 |           0 |               0 |                    0 | caching_sha2_password | $A$005$/C~OV#f\x06j`r.       \/\x12WV\x1EsBJP5HdUNl1YvH7OPDcR063WFbRu1LB8LheOw1oh8KE9       | N                | 2026-09-01 19:37:44   |              NULL | N              | Y                | Y              |                   NULL |                NULL | NULL                     | NULL            |
++-----------+------------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+---------------------------------------------------------------------------------------+------------------+-----------------------+-------------------+----------------+------------------+----------------+------------------------+---------------------+--------------------------+-----------------+
+6 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > select host ,user from user;
++-----------+------------------+
+| host      | user             |
++-----------+------------------+
+| %         | suoervisores     |
+| localhost | mysql.infoschema |
+| localhost | mysql.session    |
+| localhost | mysql.sys        |
+| localhost | prueba1          |
+| localhost | root             |
++-----------+------------------+
+6 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > create user 'prueba2'@'localhost'identified by'1234';
+Query OK, 0 rows affected (0.0083 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > select host ,user from user;
++-----------+------------------+
+| host      | user             |
++-----------+------------------+
+| %         | suoervisores     |
+| localhost | mysql.infoschema |
+| localhost | mysql.session    |
+| localhost | mysql.sys        |
+| localhost | prueba1          |
+| localhost | prueba2          |
+| localhost | root             |
++-----------+------------------+
+7 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| t1                 |
+| t1_copia           |
+| t2                 |
+| tbd_exa1           |
+| world              |
++--------------------+
+10 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > grant all on t1.* to 'prueba1'@'localhost';
+Query OK, 0 rows affected (0.0078 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > exit;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'exit' at line 1
+ MySQL  localhost:3306 ssl  mysql  SQL > /disconect
+                                      -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '/disconect' at line 1
+ MySQL  localhost:3306 ssl  mysql  SQL > \connect --mc root@prueba1
+Creating a Classic session to 'root@prueba1'
+Please provide the password for 'root@prueba1': ****
+MySQL Error 2005 (HY000): Unknown MySQL server host 'prueba1' (11001)
+ MySQL  localhost:3306 ssl  mysql  SQL >
+ MySQL  localhost:3306 ssl  mysql  SQL > ;
+ERROR: No query specified.
+ MySQL  localhost:3306 ssl  mysql  SQL > \connect --mc root@prueba1
+Creating a Classic session to 'root@prueba1'
+Please provide the password for 'root@prueba1': ****
+MySQL Error 2005 (HY000): Unknown MySQL server host 'prueba1' (11001)
+ MySQL  localhost:3306 ssl  mysql  SQL >
+ MySQL  localhost:3306 ssl  mysql  SQL >
+ MySQL  localhost:3306 ssl  mysql  SQL > \connect --mc root@prueba2
+Creating a Classic session to 'root@prueba2'
+Please provide the password for 'root@prueba2': ****
+MySQL Error 2005 (HY000): Unknown MySQL server host 'prueba2' (11001)
+ MySQL  localhost:3306 ssl  mysql  SQL >
+ MySQL  localhost:3306 ssl  mysql  SQL >
+ MySQL  localhost:3306 ssl  mysql  SQL > use t1;
+Default schema set to `t1`.
+Fetching global names, object names from `t1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  t1  SQL > show tables;
++--------------------+
+| Tables_in_t1       |
++--------------------+
+| actor_copia        |
+| cust               |
+| customer_copia     |
+| empleado           |
+| item               |
+| matricula          |
+| ordenes            |
+| persona            |
+| persona_modificada |
+| playera            |
+| vehiculo           |
+| vehiculo2          |
++--------------------+
+12 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > grant all on t1.item to 'prueba2'@'localhost';
+Query OK, 0 rows affected (0.0098 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > DISCONNECT;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISCONNECT' at line 1
+ MySQL  localhost:3306 ssl  t1  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@prueba2
+Creating a Classic session to 'root@prueba2'
+Please provide the password for 'root@prueba2': ****
+MySQL Error 2005 (HY000): Unknown MySQL server host 'prueba2' (11001)
+ MySQL  SQL > \connect --mc root@localhost/prueba2
+Creating a Classic session to 'root@localhost/prueba2'
+Please provide the password for 'root@localhost': ****
+MySQL Error 1049 (42000): Unknown database 'prueba2'
+ MySQL  SQL > \connect --mc prueba2@localhost/t1
+Creating a Classic session to 'prueba2@localhost/t1'
+Please provide the password for 'prueba2@localhost': ****
+Save password for 'prueba2@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names, object names from `t1` for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Your MySQL connection id is 20
+Server version: 8.0.46 MySQL Community Server - GPL
+Default schema set to `t1`.
+ MySQL  localhost:3306 ssl  t1  SQL >  show tables;
++--------------+
+| Tables_in_t1 |
++--------------+
+| item         |
++--------------+
+1 row in set (0.0021 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > select*from item;
++---------+-------------+-------------------+
+| id_item | item_number | item_name         |
++---------+-------------+-------------------+
+|       1 | 2010-0050   | formed handlebar  |
+|       2 | 1000-1      | 20 in. bicycle    |
+|       3 | 1002-1      | 24 in. bicycle    |
+|       4 | 1001-1      | 26 in. bicycle    |
+|       5 | 1003-1      | 20 in. bicycle    |
+|       6 | 3961-1041   | tire tube, 26 in. |
+|       7 | 3965-1050   | spoke reflector   |
++---------+-------------+-------------------+
+7 rows in set (0.0198 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > desc item;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id_item     | int         | NO   | PRI | NULL    | auto_increment |
+| item_number | varchar(50) | NO   |     | NULL    |                |
+| item_name   | varchar(50) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > insert into item(item_number,item_name)
+                                   -> value('123','456');
+Query OK, 1 row affected (0.0047 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > select*from item;
++---------+-------------+-------------------+
+| id_item | item_number | item_name         |
++---------+-------------+-------------------+
+|       1 | 2010-0050   | formed handlebar  |
+|       2 | 1000-1      | 20 in. bicycle    |
+|       3 | 1002-1      | 24 in. bicycle    |
+|       4 | 1001-1      | 26 in. bicycle    |
+|       5 | 1003-1      | 20 in. bicycle    |
+|       6 | 3961-1041   | tire tube, 26 in. |
+|       7 | 3965-1050   | spoke reflector   |
+|       8 | 123         | 456               |
++---------+-------------+-------------------+
+8 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > create user 'prueba3'@'localhost';
+ERROR: 1227 (42000): Access denied; you need (at least one of) the CREATE USER privilege(s) for this operation
+ MySQL  localhost:3306 ssl  t1  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 21
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > CREATE USER 'prueba3'@'localhost';
+Query OK, 0 rows affected (0.0067 sec)
+ MySQL  localhost:3306 ssl  SQL > GRANT ALL PRIVILEGES ON *.* TO 'prueba3'@'localhost';
+Query OK, 0 rows affected (0.0082 sec)
+ MySQL  localhost:3306 ssl  SQL >  grant select(item_number) on t1.item to 'prueba3'@'localhost';
+Query OK, 0 rows affected (0.0050 sec)
+ MySQL  localhost:3306 ssl  SQL >  show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| t1                 |
+| t1_copia           |
+| t2                 |
+| tbd_exa1           |
+| world              |
++--------------------+
+10 rows in set (0.0012 sec)
+ MySQL  localhost:3306 ssl  SQL > \connect --mc prueba3@localhost/t1
+Creating a Classic session to 'prueba3@localhost/t1'
+Please provide the password for 'prueba3@localhost': ****
+MySQL Error 1045 (28000): Access denied for user 'prueba3'@'localhost' (using password: YES)
+ MySQL  localhost:3306 ssl  SQL > \connect --mc prueba3@localhost/t1
+Creating a Classic session to 'prueba3@localhost/t1'
+Please provide the password for 'prueba3@localhost': ***
+MySQL Error 1045 (28000): Access denied for user 'prueba3'@'localhost' (using password: YES)
+ MySQL  localhost:3306 ssl  SQL > ^C
+ MySQL  localhost:3306 ssl  SQL > ^C
+ MySQL  localhost:3306 ssl  SQL >
+ MySQL  localhost:3306 ssl  SQL > ;
+ERROR: No query specified.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| t1                 |
+| t1_copia           |
+| t2                 |
+| tbd_exa1           |
+| world              |
++--------------------+
+10 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  SQL >  CREATE USER 'prueba3'@'localhost''identified by'1234';
+                               '> ^C
+ MySQL  localhost:3306 ssl  SQL > CREATE USER 'prueba4'@'localhost' 'identified by'1234';
+                               '> use prueba1;^C
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| t1                 |
+| t1_copia           |
+| t2                 |
+| tbd_exa1           |
+| world              |
++--------------------+
+10 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  SQL > use t1;
+Default schema set to `t1`.
+Fetching global names, object names from `t1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  t1  SQL > desc item;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id_item     | int         | NO   | PRI | NULL    | auto_increment |
+| item_number | varchar(50) | NO   |     | NULL    |                |
+| item_name   | varchar(50) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > select item_number from item;
++-------------+
+| item_number |
++-------------+
+| 2010-0050   |
+| 1000-1      |
+| 1002-1      |
+| 1001-1      |
+| 1003-1      |
+| 3961-1041   |
+| 3965-1050   |
+| 123         |
++-------------+
+8 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > insert into item(item_number) value('123');
+Query OK, 1 row affected (0.0106 sec)
+ MySQL  localhost:3306 ssl  t1  SQL > use mysql;
+Default schema set to `mysql`.
+Fetching global names, object names from `mysql` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  mysql  SQL > desc user;
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+| Field                    | Type                              | Null | Key | Default               | Extra |
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+| Host                     | char(255)                         | NO   | PRI |                       |       |
+| User                     | char(32)                          | NO   | PRI |                       |       |
+| Select_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Insert_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Update_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Delete_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Drop_priv                | enum('N','Y')                     | NO   |     | N                     |       |
+| Reload_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Shutdown_priv            | enum('N','Y')                     | NO   |     | N                     |       |
+| Process_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| File_priv                | enum('N','Y')                     | NO   |     | N                     |       |
+| Grant_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| References_priv          | enum('N','Y')                     | NO   |     | N                     |       |
+| Index_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Alter_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Show_db_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Super_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_tmp_table_priv    | enum('N','Y')                     | NO   |     | N                     |       |
+| Lock_tables_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Execute_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Repl_slave_priv          | enum('N','Y')                     | NO   |     | N                     |       |
+| Repl_client_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_view_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Show_view_priv           | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_routine_priv      | enum('N','Y')                     | NO   |     | N                     |       |
+| Alter_routine_priv       | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_user_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Event_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Trigger_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_tablespace_priv   | enum('N','Y')                     | NO   |     | N                     |       |
+| ssl_type                 | enum('','ANY','X509','SPECIFIED') | NO   |     |                       |       |
+| ssl_cipher               | blob                              | NO   |     | NULL                  |       |
+| x509_issuer              | blob                              | NO   |     | NULL                  |       |
+| x509_subject             | blob                              | NO   |     | NULL                  |       |
+| max_questions            | int unsigned                      | NO   |     | 0                     |       |
+| max_updates              | int unsigned                      | NO   |     | 0                     |       |
+| max_connections          | int unsigned                      | NO   |     | 0                     |       |
+| max_user_connections     | int unsigned                      | NO   |     | 0                     |       |
+| plugin                   | char(64)                          | NO   |     | caching_sha2_password |       |
+| authentication_string    | text                              | YES  |     | NULL                  |       |
+| password_expired         | enum('N','Y')                     | NO   |     | N                     |       |
+| password_last_changed    | timestamp                         | YES  |     | NULL                  |       |
+| password_lifetime        | smallint unsigned                 | YES  |     | NULL                  |       |
+| account_locked           | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_role_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Drop_role_priv           | enum('N','Y')                     | NO   |     | N                     |       |
+| Password_reuse_history   | smallint unsigned                 | YES  |     | NULL                  |       |
+| Password_reuse_time      | smallint unsigned                 | YES  |     | NULL                  |       |
+| Password_require_current | enum('N','Y')                     | YES  |     | NULL                  |       |
+| User_attributes          | json                              | YES  |     | NULL                  |       |
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+51 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > select host,user from user;
++-----------+------------------+
+| host      | user             |
++-----------+------------------+
+| %         | suoervisores     |
+| localhost | mysql.infoschema |
+| localhost | mysql.session    |
+| localhost | mysql.sys        |
+| localhost | prueba1          |
+| localhost | prueba2          |
+| localhost | prueba3          |
+| localhost | root             |
++-----------+------------------+
+8 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > select*from user where User='prueba3';
++-----------+---------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-----------------------+------------------+-----------------------+-------------------+----------------+------------------+----------------+------------------------+---------------------+--------------------------+-----------------+
+| Host      | User    | Select_priv | Insert_priv | Update_priv | Delete_priv | Create_priv | Drop_priv | Reload_priv | Shutdown_priv | Process_priv | File_priv | Grant_priv | References_priv | Index_priv | Alter_priv | Show_db_priv | Super_priv | Create_tmp_table_priv | Lock_tables_priv | Execute_priv | Repl_slave_priv | Repl_client_priv | Create_view_priv | Show_view_priv | Create_routine_priv | Alter_routine_priv | Create_user_priv | Event_priv | Trigger_priv | Create_tablespace_priv | ssl_type | ssl_cipher | x509_issuer | x509_subject | max_questions | max_updates | max_connections | max_user_connections | plugin                | authentication_string | password_expired | password_last_changed | password_lifetime | account_locked | Create_role_priv | Drop_role_priv | Password_reuse_history | Password_reuse_time | Password_require_current | User_attributes |
++-----------+---------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-----------------------+------------------+-----------------------+-------------------+----------------+------------------+----------------+------------------------+---------------------+--------------------------+-----------------+
+| localhost | prueba3 | Y           | Y           | Y           | Y           | Y           | Y         | Y           | Y             | Y            | Y         | N          | Y               | Y          | Y          | Y            | Y          | Y                     | Y                | Y            | Y               | Y                | Y                | Y              | Y                   | Y                  | Y                | Y          | Y            | Y                      |          | 0x         | 0x          | 0x           |             0 |           0 |               0 |                    0 | caching_sha2_password |                       | N                | 2026-11-09 02:05:41   |              NULL | N              | Y                | Y              |                   NULL |                NULL | NULL                     | NULL            |
++-----------+---------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------+-------------+--------------+---------------+-------------+-----------------+----------------------+-----------------------+-----------------------+------------------+-----------------------+-------------------+----------------+------------------+----------------+------------------------+---------------------+--------------------------+-----------------+
+1 row in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > drop user 'prueba3'@'localhost';
+Query OK, 0 rows affected (0.0113 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL >

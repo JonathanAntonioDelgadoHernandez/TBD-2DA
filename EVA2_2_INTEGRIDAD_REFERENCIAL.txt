@@ -1,0 +1,167 @@
+EVA2_2_INTEGRIDAD_REFERENCIAL
+Jonathan Antonio Delgado Hernandez
+MySQL Shell 26.7.1
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 13
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use t2;
+Default schema set to `t2`.
+Fetching global names, object names from `t2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  t2  SQL > show tables;
++--------------+
+| Tables_in_t2 |
++--------------+
+| tablaa       |
+| tablab       |
++--------------+
+2 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > create table cliente(
+                                   -> id_cliente int not null key auto_increment,
+                                   -> nombre varchar(50) not null,
+                                   -> apellidos varchar(50) not null,
+                                   -> fecha_nac dat);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dat)' at line 5
+ MySQL  localhost:3306 ssl  t2  SQL > create table cliente( id_cliente int not null key auto_increment, nombre varchar(50) not null, apellidos varchar(50) not null, fecha_nac date);
+Query OK, 0 rows affected (0.0257 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > insert into cliente(nombre,apellidos,fecha_nac)
+                                   -> values('Hernandez','Delgado','2006-05-06'),('Antonio','Hernandez','2008-07-19'),('Cristiano','Ronaldo','1998-12-27');
+Query OK, 3 rows affected (0.0096 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  t2  SQL > select*from cliente;
++------------+-----------+-----------+------------+
+| id_cliente | nombre    | apellidos | fecha_nac  |
++------------+-----------+-----------+------------+
+|          1 | Hernandez | Delgado   | 2006-05-06 |
+|          2 | Antonio   | Hernandez | 2008-07-19 |
+|          3 | Cristiano | Ronaldo   | 1998-12-27 |
++------------+-----------+-----------+------------+
+3 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > create table ventas(
+                                   -> id_venta int not null key auto_increment,
+                                   -> id_cliente int not null,
+                                   -> fecha_venta date);
+Query OK, 0 rows affected (0.0254 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > insert into ventas(id_cliente,fecha_venta)
+                                   -> values(1,'2026-06-07'),(1,'2022-06-07'),(2,'2024-06-07'),(7,'2008-06-07');
+Query OK, 4 rows affected (0.0072 sec)
+
+Records: 4  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  t2  SQL > select*from ventas;
++----------+------------+-------------+
+| id_venta | id_cliente | fecha_venta |
++----------+------------+-------------+
+|        1 |          1 | 2026-06-07  |
+|        2 |          1 | 2022-06-07  |
+|        3 |          2 | 2024-06-07  |
+|        4 |          7 | 2008-06-07  |
++----------+------------+-------------+
+4 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select *from cliente where id_cliente in (select distinct(id_cliente) from ventas);
++------------+-----------+-----------+------------+
+| id_cliente | nombre    | apellidos | fecha_nac  |
++------------+-----------+-----------+------------+
+|          1 | Hernandez | Delgado   | 2006-05-06 |
+|          2 | Antonio   | Hernandez | 2008-07-19 |
++------------+-----------+-----------+------------+
+2 rows in set (0.0026 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select *from cliente where id_cliente not in (select distinct(id_cliente) from venta);
+ERROR: 1146 (42S02): Table 't2.venta' doesn't exist
+ MySQL  localhost:3306 ssl  t2  SQL > select *from cliente where id_cliente not in (select distinct(id_cliente) from ventas);
++------------+-----------+-----------+------------+
+| id_cliente | nombre    | apellidos | fecha_nac  |
++------------+-----------+-----------+------------+
+|          3 | Cristiano | Ronaldo   | 1998-12-27 |
++------------+-----------+-----------+------------+
+1 row in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > desc cliente;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id_cliente | int         | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50) | NO   |     | NULL    |                |
+| apellidos  | varchar(50) | NO   |     | NULL    |                |
+| fecha_nac  | date        | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.0056 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > desc ventas;
++-------------+------+------+-----+---------+----------------+
+| Field       | Type | Null | Key | Default | Extra          |
++-------------+------+------+-----+---------+----------------+
+| id_venta    | int  | NO   | PRI | NULL    | auto_increment |
+| id_cliente  | int  | NO   |     | NULL    |                |
+| fecha_venta | date | YES  |     | NULL    |                |
++-------------+------+------+-----+---------+----------------+
+3 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select*from ventas where id_cliente=1;
++----------+------------+-------------+
+| id_venta | id_cliente | fecha_venta |
++----------+------------+-------------+
+|        1 |          1 | 2026-06-07  |
+|        2 |          1 | 2022-06-07  |
++----------+------------+-------------+
+2 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > delete from cliente
+                                   -> where id_cliente=1;
+Query OK, 1 row affected (0.0215 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > insert into cliente
+                                   -> value(1,'juan',perez','1970-11-20');
+                                   '> ^C
+ MySQL  localhost:3306 ssl  t2  SQL > drop table ventas;
+Query OK, 0 rows affected (0.0299 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > create table ventas(id_venta int not null key auto_increment,id_cliente int not null references cliente(id_cliente), fecha_venta date);
+Query OK, 0 rows affected (0.0265 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > insert into cliente
+                                   -> value(1,'jona','beit','1999-12-12');
+Query OK, 1 row affected (0.0044 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select*from ventas;
+Empty set (0.0021 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select* from ventas;
+Empty set (0.0009 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > insert into ventas(id_cliente,fecha_venta) value(1,'2022-10-12');
+Query OK, 1 row affected (0.0060 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select* from ventas;
++----------+------------+-------------+
+| id_venta | id_cliente | fecha_venta |
++----------+------------+-------------+
+|        1 |          1 | 2022-10-12  |
++----------+------------+-------------+
+1 row in set (0.0004 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > drop table ventas;
+Query OK, 0 rows affected (0.0218 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > create table ventas(id_venta int not null key auto_increment,foreign key (id_cliente) int not null references cliente(id_cliente), fecha_venta date);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int not null references cliente(id_cliente), fecha_venta date)' at line 1
+ MySQL  localhost:3306 ssl  t2  SQL > create table ventas(id_venta int not null key auto_increment,id_cliente int not null,foreign key (id_cliente) references cliente(id_cliente), fecha_venta date);
+Query OK, 0 rows affected (0.0442 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > select*from cliente;
++------------+-----------+-----------+------------+
+| id_cliente | nombre    | apellidos | fecha_nac  |
++------------+-----------+-----------+------------+
+|          1 | jona      | beit      | 1999-12-12 |
+|          2 | Antonio   | Hernandez | 2008-07-19 |
+|          3 | Cristiano | Ronaldo   | 1998-12-27 |
++------------+-----------+-----------+------------+
+3 rows in set (0.0044 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > insert into ventas(id_cliente,fecha_venta) values(1,'2026-10-12'),(2,'2026-10-9');
+Query OK, 2 rows affected (0.0056 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  t2  SQL > delete from cliente
+                                   -> where id_cliente=11;
+Query OK, 0 rows affected (0.0006 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > delete from cliente where id_cliente=1;
+ERROR: 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`t2`.`ventas`, CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`))
+ MySQL  localhost:3306 ssl  t2  SQL > update cliente set id_cliente=5 where id_cliente=1;
+ERROR: 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`t2`.`ventas`, CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`))
+ MySQL  localhost:3306 ssl  t2  SQL >

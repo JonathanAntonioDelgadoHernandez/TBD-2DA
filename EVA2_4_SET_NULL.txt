@@ -1,0 +1,92 @@
+EVA2_4_SET_NULL
+Jonathan Antonio Delgado Hernandez
+MySQL Shell 26.7.1
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): n
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 15
+Server version: 8.0.46 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use t2;
+Default schema set to `t2`.
+Fetching global names, object names from `t2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  t2  SQL > create table carrera(
+                                   -> id_carrera int not null key auto_increment,
+                                   -> nombre varchar(50) not null);
+Query OK, 0 rows affected (0.0224 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > create table estudiante(
+                                   -> id_estudiante int not null key auto_increment,
+                                   -> nombre varchar(50) not null);
+Query OK, 0 rows affected (0.0202 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > drop table estudiante;
+Query OK, 0 rows affected (0.0237 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > create table estudiante( id_estudiante int not null key auto_increment, nombre varchar(50) not null, id_carrera int not null, foreign key (id_carrera) references (id_carrera), on update cascade);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id_carrera), on update cascade)' at line 1
+ MySQL  localhost:3306 ssl  t2  SQL > CREATE TABLE estudiante(id_estudiante INT NOT NULL PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(50) NOT NULL,     id_carrera INT NOT NULL, FOREIGN KEY (id_carrera) REFERENCES carrera (id_carrera) ON UPDATE CASCADE ON DELETE CASCADE);
+Query OK, 0 rows affected (0.0530 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > insert into carrera(nombre) values('sistemas'),('diseño industruial'),('arquitectura');
+Query OK, 3 rows affected (0.0066 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  t2  SQL > select*from carrera;
++------------+--------------------+
+| id_carrera | nombre             |
++------------+--------------------+
+|          1 | sistemas           |
+|          2 | diseño industruial |
+|          3 | arquitectura       |
++------------+--------------------+
+3 rows in set (0.0004 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > insert into estudiante(nombre,id_carrera) values('Jonathan',1),('David',2),('Angie',3);
+Query OK, 3 rows affected (0.0115 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  t2  SQL > select*from estudiante;
++---------------+----------+------------+
+| id_estudiante | nombre   | id_carrera |
++---------------+----------+------------+
+|             1 | Jonathan |          1 |
+|             2 | David    |          2 |
+|             3 | Angie    |          3 |
++---------------+----------+------------+
+3 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > delete from estudiante
+                                   -> where id_carrera=2;
+Query OK, 1 row affected (0.0049 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > CREATE TABLE comida_favorita ( id_comida INT NOT NULL PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(50) NOT NULL);
+Query OK, 0 rows affected (0.0316 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > create table cliente(
+                                   -> id_cliente int not null key_autoincrement,
+                                   -> nombre varchar(50) not null
+                                   -> id_comida;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'key_autoincrement,
+nombre varchar(50) not null
+id_comida' at line 2
+ MySQL  localhost:3306 ssl  t2  SQL > show tables;
++-----------------+
+| Tables_in_t2    |
++-----------------+
+| carrera         |
+| cliente         |
+| comida_favorita |
+| estudiante      |
+| productos       |
+| tablaa          |
+| tablab          |
+| venta_detalle   |
+| ventas          |
++-----------------+
+9 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  t2  SQL > drop table cliente;
+ERROR: 3730 (HY000): Cannot drop table 'cliente' referenced by a foreign key constraint 'ventas_ibfk_1' on table 'ventas'.
+ MySQL  localhost:3306 ssl  t2  SQL > CREATE TABLE cliente_rest (    id_cliente INT NOT NULL PRIMARY KEY AUTO_INCREMENT,    nombre VARCHAR(50) NOT NULL,    id_comida_favorita INT,    FOREIGN KEY (id_comida_favorita) REFERENCES comida_favorita (id_comida) ON DELETE SET NULL ON UPDATE CASCADE);
+Query OK, 0 rows affected (0.0397 sec)
+ MySQL  localhost:3306 ssl  t2  SQL >
